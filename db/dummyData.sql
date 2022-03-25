@@ -1,5 +1,7 @@
 -- username: user, password: asd
 INSERT INTO users(userName, passwordHash) VALUES ('user', '7815696ecbf1c96e6894b779456d330e');
+-- username: user2, password: asd
+INSERT INTO users(userName, passwordHash) VALUES ('user2', '7815696ecbf1c96e6894b779456d330e');
 
 -- example categories
 INSERT INTO categories(name) VALUES ('Laptop');

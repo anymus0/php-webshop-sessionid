@@ -2,7 +2,7 @@
 $servername = "localhost";
 $username = "root";
 $password = "";
-$database = "webshop-sessid";
+$database = "php-webshop-sessionid";
 
 // Create connection
 $conn = mysqli_connect($servername, $username, $password, $database);

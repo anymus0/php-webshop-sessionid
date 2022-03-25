@@ -48,7 +48,7 @@
           ';
         } else {
           echo '
-          <p class="me-5">Logged in as: <span class="text-info">' . $_SESSION['userName'] . '</span></p>
+          <p class="me-5 text-white">Logged in as: <span class="text-info">' . $_SESSION['userName'] . '</span></p>
           <form action="./user/logout.php" method="POST">
             <input class="btn btn-danger" type="submit" value="LogOut">
           </form>

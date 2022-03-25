@@ -1,6 +1,5 @@
 <?php
 include './../includes/db.php';
-session_start();
 
 // input process
 $userName = mysqli_real_escape_string($conn, $_POST['userName']);
@@ -36,6 +35,9 @@ if (isset($_POST['rememberUserName'])) {
   setcookie('userName', '', 1, '/');
 }
 
+include './../session/initSession.php';
+initSession($user['userName'], $conn);
 $_SESSION['userName'] = $user['userName'];
+
 header('location: ./../index.php?loginSuccess=true');
 exit();

@@ -37,6 +37,7 @@ if (isset($_POST['rememberUserName'])) {
 
 include './../session/initSession.php';
 initSession($user['userName'], $conn);
+session_start();
 $_SESSION['userName'] = $user['userName'];
 
 header('location: ./../index.php?loginSuccess=true');

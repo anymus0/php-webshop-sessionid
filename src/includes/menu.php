@@ -37,9 +37,38 @@ include 'db.php';
             ';
           }
           ?>
+
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Detailed search
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <div class="container">
+                <div class="row">
+                  <div class="col">
+                    <form action="./filteredProducts.php" method="GET">
+                      <?php
+                      // sub-categories
+                      $subCategoriesQuery = "SELECT * FROM subcategories;";
+                      $subCategoriesResult = mysqli_query($conn, $subCategoriesQuery);
+                      while ($subCategoryRow = mysqli_fetch_assoc($subCategoriesResult)) {
+                        echo '
+                        <input type="checkbox" id="subCategory-' . $subCategoryRow["name"] . '" name="subCategories[]" value="'.$subCategoryRow["id"].'">
+                        <label for="subCategory-' . $subCategoryRow["name"] . '">' . $subCategoryRow["name"] . '</label><br>';
+                      }
+                      ?>
+                      <input class="btn btn-success m-2" type="submit" value="Apply">
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </ul>
+          </li>
+
+
         </ul>
         <div class="d-flex">
-          <?php 
+          <?php
           if (isset($_SESSION['userName'])) {
             include 'cart.php';
           }

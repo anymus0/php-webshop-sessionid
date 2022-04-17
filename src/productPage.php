@@ -1,12 +1,15 @@
 <?php
 include('./includes/head.php');
 include('./includes/db.php');
+include('./favorite/getFavorites.php');
 ?>
 
 <body>
   <?php
   include('./includes/header.php');
-  include('./includes/menu.php');
+  if (isset($_SESSION["userName"])) {
+    include('./includes/menu.php');
+  }
 
   if (!isset($_GET['productId'])) {
     echo '<p class="text-danger">Product is not set!</p>';
@@ -47,7 +50,33 @@ include('./includes/db.php');
                     <input type="submit" value="Add to Cart" class="btn btn-success">
                   </div>
                 </div>
-              </form>
+              </form>';
+                if (isset($_SESSION["userName"])) {
+                  if (isFavorite($conn, $_SESSION["userId"], $product['id'])) {
+                    echo '
+                    <div class="row">
+                      <div class="col-12 m-1">
+                        <form action="./favorite/removeFavorite.php" method="POST">
+                          <input type="text" name="productId" id="productId" value="' . $product['id'] . '" hidden>
+                          <input class="btn btn-danger" type="submit" value="Remove From Favorites">
+                        </form>
+                      </div>                  
+                    </div>
+                  ';
+                  } else {
+                    echo '
+                      <div class="row">
+                        <div class="col-12 m-1">
+                          <form action="./favorite/addFavorite.php" method="POST">
+                            <input type="text" name="productId" id="productId" value="' . $product['id'] . '" hidden>
+                            <input class="btn btn-info" type="submit" value="Add to Favorites">
+                          </form>
+                        </div>                  
+                      </div>
+                    ';
+                  }
+                }
+                echo '
             </div>
           </div>
         </div>

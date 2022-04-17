@@ -39,6 +39,7 @@ include './../session/initSession.php';
 initSession($user['userName'], $conn);
 session_start();
 $_SESSION['userName'] = $user['userName'];
+$_SESSION['userId'] = $user['id'];
 
 header('location: ./../index.php?loginSuccess=true');
 exit();

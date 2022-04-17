@@ -47,3 +47,12 @@ CREATE TABLE Product_Category
     FOREIGN KEY (subCategoryId) REFERENCES subcategories(id),
     FOREIGN KEY (ProductId) REFERENCES products(id)
 );
+
+CREATE TABLE favorites
+(
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    ProductId INT NOT NULL,
+    userId INT NOT NULL,
+    FOREIGN KEY (ProductId) REFERENCES products(id),
+    FOREIGN KEY (userId) REFERENCES subcategories(id)
+);

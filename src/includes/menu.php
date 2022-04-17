@@ -53,7 +53,7 @@ include 'db.php';
                       $subCategoriesResult = mysqli_query($conn, $subCategoriesQuery);
                       while ($subCategoryRow = mysqli_fetch_assoc($subCategoriesResult)) {
                         echo '
-                        <input type="checkbox" id="subCategory-' . $subCategoryRow["name"] . '" name="subCategories[]" value="'.$subCategoryRow["id"].'">
+                        <input type="checkbox" id="subCategory-' . $subCategoryRow["name"] . '" name="subCategories[]" value="' . $subCategoryRow["id"] . '">
                         <label for="subCategory-' . $subCategoryRow["name"] . '">' . $subCategoryRow["name"] . '</label><br>';
                       }
                       ?>
@@ -64,14 +64,15 @@ include 'db.php';
               </div>
             </ul>
           </li>
-
-
+          <li class="nav-item dropdown">
+            <a class="nav-link" href="./favoritesPage.php" role="button">
+              Favorites
+            </a>
+          </li>
         </ul>
         <div class="d-flex">
           <?php
-          if (isset($_SESSION['userName'])) {
-            include 'cart.php';
-          }
+          include 'cart.php';
           ?>
         </div>
       </div>

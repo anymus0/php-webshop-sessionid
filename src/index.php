@@ -5,7 +5,9 @@ include('./includes/head.php');
 <body>
   <?php
   include('./includes/header.php');
-  include('./includes/menu.php');
+  if (isset($_SESSION["userName"])) {
+    include('./includes/menu.php');
+  }
   ?>
 
   <h1>WebShop main page</h1>

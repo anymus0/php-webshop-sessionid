@@ -1,21 +1,19 @@
 <?php
 include('./includes/head.php');
 include('./includes/db.php');
+include('./includes/header.php');
+if (isset($_SESSION["userName"])) {
+  include('./includes/menu.php');
+}
 include('./favorite/getFavorites.php');
 ?>
 
 <body>
-  <?php
-  include('./includes/header.php');
-  if (isset($_SESSION["userName"])) {
-    include('./includes/menu.php');
-  }
-  ?>
   <div class="container">
     <div class="row">
       <?php
-      $subCategories = $_GET["subCategories"];
-      $query = "SELECT * FROM product_category INNER JOIN products ON products.id = product_category.ProductId WHERE subCategoryId IN ('" . implode("','", $subCategories) . "');";
+      $userId = $_SESSION["userId"];
+      $query = "SELECT * FROM favorites INNER JOIN products ON products.id = favorites.ProductId WHERE favorites.userId = '$userId';";
       $result = mysqli_query($conn, $query);
       while ($row = mysqli_fetch_assoc($result)) {
         echo '
@@ -29,7 +27,7 @@ include('./favorite/getFavorites.php');
                 <div class="col-lg-4 col-12 m-1">
                   <form action="./session/saveCartItem.php" method="POST">
                     <label for="quantity">Quantity:</label>
-                    <input type="number" name="quantity" id="quantity" min="1" placeholder="1" class="form-control m-1">
+                    <input type="number" name="quantity" id="quantity" min="1" placeholder="1" class="form-control m-1" require>
                     <input type="text" name="productId" id="productId" value="' . $row['ProductId'] . '" hidden>
                     <input class="btn btn-success" type="submit" value="Add to Cart">
                   </form>
@@ -48,17 +46,6 @@ include('./favorite/getFavorites.php');
               </div>                  
             </div>
           ';
-          } else {
-            echo '
-              <div class="row">
-                <div class="col-12 m-1">
-                  <form action="./favorite/addFavorite.php" method="POST">
-                    <input type="text" name="productId" id="productId" value="' . $row['ProductId'] . '" hidden>
-                    <input class="btn btn-info" type="submit" value="Add to Favorites">
-                  </form>
-                </div>                  
-              </div>
-            ';
           }
         }
         echo '
